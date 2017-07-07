@@ -113,4 +113,12 @@ input[type=number]::-webkit-outer-spin-button {
 #pokedex .card {
     margin: 1%;
     width: 31%;
+    height: 300px;
+}
+#pokedex .card .card-image {
+	height: 200px;
+}
+.card .card-image img {
+    width: 200px;
+    margin: 0 auto;
 }

@@ -23,12 +23,9 @@ $(document).ready(function($) {
 			var pkmnURL = elemento.url;
 
 			var card = $('<div>').addClass('card');
-			var cardCont2 = $('<div>').addClass('card-content');
-			var cardCont1 = $('<div>').addClass('card-stacked');
+			var cardCont = $('<div>').addClass('card-content');
 			card.addClass('col');
-			card.addClass('small');
 			var pkmnName = $('<span>').addClass('card-title').text(nombre);
-
 			//console.log(elemento);
 
 			// AJAX para el Pokémon solito
@@ -41,9 +38,8 @@ $(document).ready(function($) {
 				console.log("success");
 				console.log(pokemon);
 				imagenId(pokemon);
-				cardCont2.append(pkmnName);
-				cardCont1.append(cardCont2);
-				card.append(cardCont1);
+				cardCont.append(pkmnName);
+				card.append(cardCont);
 				$('#pokedex').append(card);
 			})
 			.fail(function() {
@@ -53,17 +49,26 @@ $(document).ready(function($) {
 				console.log("complete");
 			});
 
+			// función para agregar sprite
 			function imagenId(e) {
 				var pkmnID = e.id;
 				var sprite = $('<img>').attr({
 					'src':'http://pokeapi.co/media/img/'+ pkmnID +'.png',
 					'alt': nombre
 				});
+
+			// mostrar pokemones
 				var cardImg = $('<div>').addClass('card-image');
+				var fabBtn = $('<div>').addClass('btn-floating');
+				fabBtn.addClass('halfway-fab');
+				fabBtn.addClass('waves-effect');
+				fabBtn.addClass('waves-light');
+				fabBtn.addClass('red');
+				fabBtn.html('<i class="material-icons">add</>');
+				cardImg.append(fabBtn);
 				sprite.appendTo(cardImg);
 				card.append(cardImg);
 			}
-			// mostrar pokemones
 
 		});
 	}
