@@ -45,3 +45,64 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+/* ESTILOS BÁSICOS */
+#search .input-field input {
+	color: #fff;
+}
+#search .input-field .prefix {
+	color: #9e9e9e;
+}
+#search .input-field input[type=search] {
+	padding: 5px;
+}
+/* label color */
+#search .input-field label {
+	color: #fff;
+}
+/* label focus color */
+#search .input-field input[type=search]:focus + label {
+	color: #fff;
+}
+/* label underline focus color */
+#search .input-field input[type=search]:focus {
+	border-bottom: 1px solid #fff;
+	box-shadow: 0 1px 0 0 #fff;
+	background: none;
+    padding: 5px;
+}
+/* valid color */
+#search .input-field input[type=search].valid {
+	border-bottom: 1px solid #fff;
+	box-shadow: 0 1px 0 0 #fff;
+	color: #fff;
+}
+/* invalid color */
+#search .input-field input[type=search].invalid {
+	border-bottom: 1px solid #fff;
+	box-shadow: 0 1px 0 0 #fff;
+}
+/* icon prefix focus color */
+#search .input-field .prefix.active {
+	color: #fff;
+}
+/*INPUT CHECK*/
+input[type|=check] {
+	display: inline-block;
+	width: auto;
+}
+label[for|=check] {
+	font-weight: normal;
+	display: inline-block;
+}
+/* INPUT NUMBER SIN FLECHAS */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+	-webkit-appearance: none; 
+	margin: 0; 
+}
+
+/* Especial */
+#search {
+	padding: 5em 0 3em;
+}
