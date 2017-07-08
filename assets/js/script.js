@@ -1,4 +1,6 @@
 $(document).ready(function($) {
+	// the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal').modal();
 	$.ajax({
 		url: 'http://pokeapi.co/api/v2/pokemon/',
 		type: 'GET',
@@ -22,13 +24,12 @@ $(document).ready(function($) {
 			var nombre = elemento.name;
 			var pkmnURL = elemento.url;
 
-			var card = $('<div>').addClass('card');
+			var card = $('<div>').addClass('card col');
 			var cardCont = $('<div>').addClass('card-content');
-			card.addClass('col');
 			var pkmnName = $('<span>').addClass('card-title').text(nombre);
 			//console.log(elemento);
 
-			// AJAX para el Pokémon solito
+			// AJAX para el ID del Pokémon
 			$.ajax({
 				url: pkmnURL,
 				type: 'GET',
@@ -37,9 +38,7 @@ $(document).ready(function($) {
 			.done(function(pokemon) {
 				console.log("success");
 				console.log(pokemon);
-				imagenId(pokemon);
-				cardCont.append(pkmnName);
-				card.append(cardCont);
+				cardId(pokemon);
 				$('#pokedex').append(card);
 			})
 			.fail(function() {
@@ -50,26 +49,56 @@ $(document).ready(function($) {
 			});
 
 			// función para agregar sprite
-			function imagenId(e) {
+			function cardId(e) {
 				var pkmnID = e.id;
+				
+				// contenedor Imagen y fab
+				var cardImg = $('<div>').addClass('card-image');
+
+				var pkmnIdStr = '#modal-'+ pkmnID;
+
+				// Fab Button
+				var fabBtn = $('<a>').attr({'href': pkmnIdStr});
+				fabBtn.addClass('btn-floating halfway-fab waves-effect waves-light modal-trigger red');
+				fabBtn.html('<i class="material-icons">add</>'); // icono " + "
+				//modal
+				fabBtn.click(function() {
+					var modal = $('<div>').addClass('modal open');
+					modal.attr({'id':'modal-'+ pkmnID});
+					var modalContent = $('<div>').addClass('modal-content');
+					var modalH4 = $('<h4>').text(nombre);
+					modalContent.append(modalH4);
+					//var pkmnFlavor = e.flavor_text_entries[1].flavor_text;
+					var modalP = $('<p>').text('descripción de pokémon');
+					modalContent.append(modalP);
+					var modalFooter = $('<div>').addClass('modal-footer');
+					var modalClose = $('<a>').attr({'href':'#!'});
+					modalClose.addClass('amber lighten-1 white-text modal-action modal-close waves-effect waves-green btn-flat');
+					modalClose.text('Close');
+					modalClose.click(function(e) {
+						e.preventDefault();
+						$(this).parent(".modal-footer").parent(".modal").removeClass('open');
+					});
+					modalFooter.append(modalClose);
+					modal.append(modalFooter);
+					modal.append(modalContent);
+					card.append(modal);
+				});
+
+				cardImg.append(fabBtn);
+
+				// crear imagen
 				var sprite = $('<img>').attr({
 					'src':'http://pokeapi.co/media/img/'+ pkmnID +'.png',
 					'alt': nombre
 				});
-
-			// mostrar pokemones
-				var cardImg = $('<div>').addClass('card-image');
-				var fabBtn = $('<div>').addClass('btn-floating');
-				fabBtn.addClass('halfway-fab');
-				fabBtn.addClass('waves-effect');
-				fabBtn.addClass('waves-light');
-				fabBtn.addClass('red');
-				fabBtn.html('<i class="material-icons">add</>');
-				cardImg.append(fabBtn);
 				sprite.appendTo(cardImg);
-				card.append(cardImg);
-			}
 
+				// crear card de cada pokemón
+				cardCont.append(pkmnName);
+				card.append(cardImg);
+				card.append(cardCont);
+			}
 		});
 	}
 });
