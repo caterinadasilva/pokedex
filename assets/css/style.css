@@ -106,8 +106,9 @@ input[type=number]::-webkit-outer-spin-button {
 /* Especial */
 #search {
 	padding: 5em 0 3em;
+	margin: 0 0 3em;
 }
-#pokedex .card .card-title, h4 {
+#pokedex .card .card-title, h2 {
     text-transform: capitalize;
 }
 #pokedex .card {
@@ -136,7 +137,19 @@ input[type=number]::-webkit-outer-spin-button {
 }
 .modal .modal-content {
     background: #fafafa;
+    position: relative;
     width: 70%;
+    overflow: hidden;
     margin: 0 auto;
     box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2);
+}
+.modal .modal-content .modal-image {
+    display: block;
+    float: left;
+    width: 200px;
+}
+.modal .modal-content .modal-order {
+    position: absolute;
+    top: 24px;
+    right: 24px;
 }

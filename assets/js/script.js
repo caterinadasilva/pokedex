@@ -5,7 +5,7 @@ $(document).ready(function($) {
 		url: 'http://pokeapi.co/api/v2/pokemon/',
 		type: 'GET',
 		dataType: 'JSON',
-		data: {'limit': '12'}
+		data: {'limit': '21'}
 	})
 	.done(function(pokemones) {
 		console.log("success");
@@ -51,11 +51,17 @@ $(document).ready(function($) {
 			// función para agregar sprite
 			function cardId(e) {
 				var pkmnID = e.id;
-				
+
 				// contenedor Imagen y fab
 				var cardImg = $('<div>').addClass('card-image');
 
 				var pkmnIdStr = '#modal-'+ pkmnID;
+
+				// crear imagen
+				var sprite = $('<img>').attr({
+					'src':'http://pokeapi.co/media/img/'+ pkmnID +'.png',
+					'alt': nombre
+				});
 
 				// Fab Button
 				var fabBtn = $('<a>').attr({'href': pkmnIdStr});
@@ -66,11 +72,21 @@ $(document).ready(function($) {
 					var modal = $('<div>').addClass('modal open');
 					modal.attr({'id':'modal-'+ pkmnID});
 					var modalContent = $('<div>').addClass('modal-content');
-					var modalH4 = $('<h4>').text(nombre);
+					var pkmnSprite = $('<img>').attr({
+						'src':'http://pokeapi.co/media/img/'+ pkmnID +'.png',
+						'alt': nombre
+					});
+					pkmnSprite.addClass('modal-image');
+					modalContent.append(pkmnSprite);
+					var modalH4 = $('<h2>').text(nombre);
 					modalContent.append(modalH4);
 					//var pkmnFlavor = e.flavor_text_entries[1].flavor_text;
 					var modalP = $('<p>').text('descripción de pokémon');
 					modalContent.append(modalP);
+
+					var modalNumber = $('<h1>').addClass('modal-order').text('#' + pkmnID);
+					modalContent.append(modalNumber);
+
 					var modalFooter = $('<div>').addClass('modal-footer');
 					var modalClose = $('<a>').attr({'href':'#!'});
 					modalClose.addClass('amber lighten-1 white-text modal-action modal-close waves-effect waves-green btn-flat');
@@ -86,12 +102,6 @@ $(document).ready(function($) {
 				});
 
 				cardImg.append(fabBtn);
-
-				// crear imagen
-				var sprite = $('<img>').attr({
-					'src':'http://pokeapi.co/media/img/'+ pkmnID +'.png',
-					'alt': nombre
-				});
 				sprite.appendTo(cardImg);
 
 				// crear card de cada pokemón
